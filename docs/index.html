@@ -177,11 +177,13 @@
     background: #fffbeb;
     border: 1px solid #fde68a;
     padding: 0.5rem;
+    padding-left: 0.5in;
     border-radius: 4px;
     font-size: 0.8rem;
     margin: 0.4rem 0;
     word-break: break-all;
     white-space: pre-wrap;
+    text-indent: -0.5in;
   }
 
   /* Flow path hidden state */
@@ -299,10 +301,23 @@
 
 <div class="header">
   <h1>Copyrighted Media Accessibility Remediation</h1>
-  <p>Interactive decision flowchart for instructional designers at public universities remediating copyrighted videos, podcasts, and music for accessible online courses</p>
+  <p>Interactive decision flowchart for online and distance learning instructional designers at public universities remediating copyrighted videos, podcasts, and music for accessibility compliance</p>
 </div>
 
 <div class="container">
+
+  <!-- NAVIGATION INSTRUCTIONS -->
+  <div class="node" style="border-left-color: #8e44ad; background: #faf5ff;">
+    <h3>How to Use This Flowchart</h3>
+    <p>This interactive tool is designed for <strong>instructional designers working in online and distance learning</strong> at public universities who need to remediate copyrighted media for accessibility compliance.</p>
+    <ul>
+      <li><strong>Decision Flowchart:</strong> Select your media type (video, podcast, or music) and follow the branching decision path. Click the expandable sections (&#9656;) for detailed legal analysis and checklists.</li>
+      <li><strong>Citation Procedures:</strong> Find Chicago Manual of Style (Notes-Bibliography) citation templates for each media type, along with copyright notice language for your LMS.</li>
+      <li><strong>Title II Accommodations:</strong> Review your proactive and reactive obligations under ADA Title II, Section 504, and the 2024 Final Rule.</li>
+      <li><strong>Legal Quick Reference:</strong> Consult the summary table of applicable laws, a decision matrix for common scenarios, and key principles.</li>
+    </ul>
+    <p><strong>Important:</strong> Use the tabs above to navigate between sections. Within the Decision Flowchart, click buttons to progress through the decision tree. Click "Start Over" at any time to reset.</p>
+  </div>
 
   <!-- TAB BAR -->
   <div class="tab-bar" role="tablist">
@@ -373,7 +388,23 @@
                 <li>Institution has a copyright policy and provides copyright notices</li>
                 <li>You are NOT using content primarily produced for the digital education market</li>
               </ul>
-              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; TEACH Act (2002)</p>
+              <p class="legal-ref"><a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; TEACH Act (2002)</p>
+            </div>
+          </div>
+          <div class="expandable-header" onclick="toggleExpand(this)" style="margin-top: 1rem;">
+            <span>Important: TEACH Act limitations for online courses</span>
+          </div>
+          <div class="expandable-body">
+            <div class="inner">
+              <p style="color: #c0392b; font-weight: 600;">The TEACH Act has significant limitations for asynchronous online courses:</p>
+              <ul>
+                <li><strong>Mediated instructional activities only:</strong> The content must be used as part of a live or instructor-directed teaching session, not simply posted for students to access on their own schedule. Merely uploading a video to an LMS module does not qualify.</li>
+                <li><strong>Analogous to a live classroom:</strong> Use must be comparable to what an instructor would display or perform in a face-to-face class session — not an entire work made available for extended viewing.</li>
+                <li><strong>"Reasonable and limited portions":</strong> For sound recordings, only brief excerpts are permitted — not full performances or complete songs.</li>
+                <li><strong>No content produced for the digital education market:</strong> Works specifically created for online courses (e.g., digital textbook supplements, licensed courseware videos) are excluded.</li>
+                <li><strong>Technical requirements:</strong> The institution must implement technological measures to prevent downstream copying and limit access to enrolled students for the duration of the class session.</li>
+              </ul>
+              <p><strong>For most asynchronous online courses, Fair Use (17 U.S.C. § 107) and ADA Title II obligations provide stronger and more practical legal foundations for accessibility remediation than the TEACH Act alone.</strong></p>
             </div>
           </div>
           <div class="choices" style="margin-top:1rem;">
@@ -387,7 +418,7 @@
           <div class="arrow" aria-hidden="true">&#9660;</div>
           <div class="node action">
             <h3><span class="badge badge-action">Action</span> Caption under TEACH Act + Fair Use for Accessibility</h3>
-            <p>You may caption the video as an accessibility remediation. The act of adding captions to copyrighted video for accessibility is generally supported by <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> (transformative purpose; no market substitution) when combined with TEACH Act coverage.</p>
+            <p>You may caption the video as an accessibility remediation. The act of adding captions to copyrighted video for accessibility is generally supported by <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">fair use</a> (transformative purpose; no market substitution) when combined with TEACH Act coverage.</p>
             <ul>
               <li>Create or commission accurate captions (99%+ accuracy target)</li>
               <li>Include speaker identification and relevant non-speech audio</li>
@@ -396,7 +427,7 @@
               <li>Do not distribute the captioned file outside the course</li>
               <li>Document your fair use analysis (keep on file)</li>
             </ul>
-            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a> (Fair Use); <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> (TEACH Act); <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
+            <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a> (Fair Use); <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> (TEACH Act); <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
           </div>
         </div>
 
@@ -404,7 +435,7 @@
           <div class="connector"></div>
           <div class="arrow" aria-hidden="true">&#9660;</div>
           <div class="node decision">
-            <h3><span class="badge badge-decision">Decision</span> Does <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">Fair Use</a> support captioning?</h3>
+            <h3><span class="badge badge-decision">Decision</span> Does <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">Fair Use</a> support captioning?</h3>
             <p>Apply the four-factor fair use test:</p>
             <div class="expandable-header" onclick="toggleExpand(this)">
               <span>View four-factor analysis for accessibility captioning</span>
@@ -418,7 +449,7 @@
                   <li><strong>Factor 4 &mdash; Market effect:</strong> Captioning for enrolled students does not substitute for the market. You are not distributing a competing product. This strongly favors fair use.</li>
                 </ul>
                 <p style="margin-top:0.75rem;"><strong>Overall:</strong> Captioning copyrighted video for enrolled students with disabilities at a public university is widely considered fair use, especially when no accessible version is commercially available. The <a href="https://www.copyright.gov/" target="_blank" rel="noopener">U.S. Copyright Office</a> has acknowledged this principle.</p>
-                <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; U.S. Copyright Office guidance on accessibility</p>
+                <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; U.S. Copyright Office guidance on accessibility</p>
               </div>
             </div>
             <div class="choices" style="margin-top:1rem;">
@@ -440,7 +471,7 @@
                 <li>Restrict access to enrolled students only</li>
                 <li>Store the fair use rationale with your course files</li>
               </ul>
-              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 of the Rehabilitation Act</a></p>
+              <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 of the Rehabilitation Act</a></p>
             </div>
           </div>
 
@@ -509,7 +540,7 @@
           <div class="arrow" aria-hidden="true">&#9660;</div>
           <div class="node action">
             <h3><span class="badge badge-action">Action</span> Transcribe under Fair Use for Accessibility</h3>
-            <p>Creating a transcript of a copyrighted podcast for student accessibility is a strong <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> case. A transcript is a different modality from the audio &mdash; it provides access, not a market substitute.</p>
+            <p>Creating a transcript of a copyrighted podcast for student accessibility is a strong <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">fair use</a> case. A transcript is a different modality from the audio &mdash; it provides access, not a market substitute.</p>
             <ul>
               <li>Create an accurate transcript with speaker labels</li>
               <li>Note significant non-speech audio in brackets</li>
@@ -517,7 +548,7 @@
               <li>Restrict access to enrolled students</li>
               <li>Document your fair use rationale</li>
             </ul>
-            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">WCAG 1.2.1</a></p>
+            <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">WCAG 1.2.1</a></p>
           </div>
         </div>
 
@@ -525,8 +556,24 @@
           <div class="connector"></div>
           <div class="arrow" aria-hidden="true">&#9660;</div>
           <div class="node decision">
-            <h3><span class="badge badge-decision">Decision</span> Does the <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a> cover the audio use?</h3>
+            <h3><span class="badge badge-decision">Decision</span> Does the <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">TEACH Act</a> cover the audio use?</h3>
             <p>For audio embedded or uploaded to the LMS, check the TEACH Act checklist (same as video). Only "reasonable and limited portions" of sound recordings are covered &mdash; <strong>not the entire recording</strong> for music/dramatic works.</p>
+            <div class="expandable-header" onclick="toggleExpand(this)" style="margin-top: 1rem; margin-bottom: 1rem;">
+              <span>Important: TEACH Act limitations for online courses</span>
+            </div>
+            <div class="expandable-body">
+              <div class="inner">
+                <p style="color: #c0392b; font-weight: 600;">The TEACH Act has significant limitations for asynchronous online courses:</p>
+                <ul>
+                  <li><strong>Mediated instructional activities only:</strong> The content must be used as part of a live or instructor-directed teaching session, not simply posted for students to access on their own schedule. Merely uploading a video to an LMS module does not qualify.</li>
+                  <li><strong>Analogous to a live classroom:</strong> Use must be comparable to what an instructor would display or perform in a face-to-face class session — not an entire work made available for extended viewing.</li>
+                  <li><strong>"Reasonable and limited portions":</strong> For sound recordings, only brief excerpts are permitted — not full performances or complete songs.</li>
+                  <li><strong>No content produced for the digital education market:</strong> Works specifically created for online courses (e.g., digital textbook supplements, licensed courseware videos) are excluded.</li>
+                  <li><strong>Technical requirements:</strong> The institution must implement technological measures to prevent downstream copying and limit access to enrolled students for the duration of the class session.</li>
+                </ul>
+                <p><strong>For most asynchronous online courses, Fair Use (17 U.S.C. § 107) and ADA Title II obligations provide stronger and more practical legal foundations for accessibility remediation than the TEACH Act alone.</strong></p>
+              </div>
+            </div>
             <div class="choices">
               <button class="choice-btn" onclick="showPodcastPath3('teach-covers')">TEACH Act applies (limited portion)</button>
               <button class="choice-btn" onclick="showPodcastPath3('teach-no')">Full podcast needed / TEACH doesn't apply</button>
@@ -539,7 +586,7 @@
             <div class="node action">
               <h3><span class="badge badge-action">Action</span> Transcribe under TEACH Act + Fair Use</h3>
               <ul>
-                <li>Use the permitted portion under <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a></li>
+                <li>Use the permitted portion under <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">TEACH Act</a></li>
                 <li>Create accurate transcript for that portion</li>
                 <li>Restrict access via LMS to enrolled students</li>
                 <li>Apply DRM or copy-prevention as feasible</li>
@@ -553,7 +600,7 @@
             <div class="arrow" aria-hidden="true">&#9660;</div>
             <div class="node action">
               <h3><span class="badge badge-action">Action</span> Transcribe under Fair Use for Accessibility</h3>
-              <p>Even without TEACH Act coverage, <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> strongly supports creating a transcript for accessibility. Apply the four-factor test:</p>
+              <p>Even without TEACH Act coverage, <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">fair use</a> strongly supports creating a transcript for accessibility. Apply the four-factor test:</p>
               <ul>
                 <li>Purpose: nonprofit educational + accessibility = transformative</li>
                 <li>Amount: full transcription may be necessary for access</li>
@@ -564,7 +611,7 @@
                 <li>Document fair use rationale</li>
                 <li>If the content is a dramatic work or music performance, consider licensing or replacing with <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER</a></li>
               </ul>
-              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
+              <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
             </div>
           </div>
         </div>
@@ -628,13 +675,13 @@
           <div class="node action">
             <h3><span class="badge badge-action">Action</span> Provide lyrics under Fair Use / TEACH Act</h3>
             <ul>
-              <li>Use only the portion needed for the lesson (<a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> factor 3)</li>
+              <li>Use only the portion needed for the lesson (<a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">fair use</a> factor 3)</li>
               <li>Provide lyrics in an accessible format within the LMS</li>
               <li>Cite the songwriter, publisher, and copyright year</li>
               <li>For full lyrics in a music appreciation course, document your fair use analysis carefully (amount used may be the whole work, but educational purpose and restricted access support fair use)</li>
               <li>Consider linking to licensed lyrics databases (e.g., services your library subscribes to)</li>
             </ul>
-            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a></p>
+            <p class="legal-ref"><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a></p>
           </div>
         </div>
 
@@ -665,7 +712,7 @@
               <li>Provide alternative text for all visual representations</li>
               <li>Coordinate with Disability Services for individual accommodation plans</li>
             </ul>
-            <p class="legal-ref">Transformative use under <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a> reasonable accommodation</p>
+            <p class="legal-ref">Transformative use under <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a> reasonable accommodation</p>
           </div>
         </div>
       </div>
@@ -676,7 +723,7 @@
         <div class="arrow" aria-hidden="true">&#9660;</div>
         <div class="node warning">
           <h3><span class="badge badge-warning">Caution</span> Standalone music has limited TEACH Act coverage</h3>
-          <p>The <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a> limits use of sound recordings to "reasonable and limited portions." Full performances typically require licensing.</p>
+          <p>The <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">TEACH Act</a> limits use of sound recordings to "reasonable and limited portions." Full performances typically require licensing.</p>
           <ul>
             <li>Check if your institution has streaming licenses (<a href="https://www.naxos.com/" target="_blank" rel="noopener">Naxos</a>, <a href="https://alexanderstreet.com/" target="_blank" rel="noopener">Alexander Street</a>, etc.)</li>
             <li>Use licensed streaming platforms that provide their own accessibility features</li>
@@ -684,7 +731,7 @@
             <li>If a D/deaf student needs to engage with the music, work with Disability Services for an individualized accommodation plan</li>
             <li>Consider <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER</a> or <a href="https://creativecommons.org/" target="_blank" rel="noopener">Creative Commons</a>-licensed alternatives</li>
           </ul>
-          <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; limited to "reasonable and limited portions" for sound recordings</p>
+          <p class="legal-ref"><a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; limited to "reasonable and limited portions" for sound recordings</p>
         </div>
       </div>
     </div>
@@ -697,7 +744,7 @@
         <h3><span class="step-number">&#10003;</span> Document Everything</h3>
         <p>Regardless of the path you followed, always complete these documentation steps:</p>
         <ul>
-          <li><strong>Fair use analysis:</strong> Record your <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">four-factor analysis</a> and date it</li>
+          <li><strong>Fair use analysis:</strong> Record your <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">four-factor analysis</a> and date it</li>
           <li><strong>Accessibility verification:</strong> Confirm remediated content meets <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a></li>
           <li><strong>Access controls:</strong> Verify LMS restricts access to enrolled students</li>
           <li><strong>Citation:</strong> Properly cite the original work (see Citation Procedures tab)</li>
@@ -714,7 +761,7 @@
   <div id="tab-citation" class="tab-content">
     <div class="node">
       <h3>Citation Procedures for Remediated Copyrighted Media</h3>
-      <p>When you caption, transcribe, or otherwise remediate copyrighted media for accessibility, you must cite the original work. Citations serve legal documentation purposes (demonstrating good faith) and academic integrity requirements. Follow <a href="https://apastyle.apa.org/style-grammar-guidelines/references" target="_blank" rel="noopener">APA 7th Edition</a> format.</p>
+      <p>When you caption, transcribe, or otherwise remediate copyrighted media for accessibility, you must cite the original work. Citations serve legal documentation purposes (demonstrating good faith) and academic integrity requirements. Templates are provided below in three major formats: <a href="https://www.chicagomanualofstyle.org/tools_citationguide/citation-guide-1.html" target="_blank" rel="noopener">Chicago Manual of Style (Notes-Bibliography)</a>, <a href="https://apastyle.apa.org/style-grammar-guidelines/references" target="_blank" rel="noopener">APA 7th Edition</a>, and <a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener">MLA 9th Edition</a>. Use the format required by your institution or discipline.</p>
     </div>
 
     <div class="node action">
@@ -730,24 +777,114 @@
       <h3>Citation Formats by Media Type</h3>
 
       <div class="citation-box">
-        <h4>Video (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/video-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
-        <code>Director, D. D. (Director). (Year). Title of video [Film/Documentary/Video]. Production Company. URL (if applicable)
+        <h4>Video (<a href="https://www.chicagomanualofstyle.org/tools_citationguide/citation-guide-1.html#cg-videos" target="_blank" rel="noopener">Chicago Notes-Bibliography</a>)</h4>
+        <p><strong>Footnote:</strong></p>
+        <code>1. Title of Video, directed by First Last (Place: Production Company, Year), format/medium, URL.
+
+Accessibility note: Captions added by [University Name], [Date]. Original work used under fair use (17 U.S.C. § 107) for educational accessibility.</code>
+
+        <p style="margin-top:1rem;"><strong>Bibliography:</strong></p>
+        <code>Last, First, dir. Title of Video. Place: Production Company, Year. Format/medium. URL.
+
+Accessibility note: Captions added by [University Name], [Date]. Original work used under fair use (17 U.S.C. § 107) for educational accessibility.</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Podcast / Audio (<a href="https://www.chicagomanualofstyle.org/tools_citationguide/citation-guide-1.html#cg-videos" target="_blank" rel="noopener">Chicago Notes-Bibliography</a>)</h4>
+        <p><strong>Footnote:</strong></p>
+        <code>1. First Last, "Episode Title," Month Day, Year, in Podcast Name, produced by Producer/Network, podcast, audio, duration, URL.
+
+Accessibility note: Transcript created by [University Name], [Date], for accessibility under fair use (17 U.S.C. § 107).</code>
+
+        <p style="margin-top:1rem;"><strong>Bibliography:</strong></p>
+        <code>Last, First. "Episode Title." Month Day, Year. In Podcast Name. Produced by Producer/Network. Podcast, audio, duration. URL.
+
+Accessibility note: Transcript created by [University Name], [Date], for accessibility under fair use (17 U.S.C. § 107).</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Music (<a href="https://www.chicagomanualofstyle.org/book/ed18/part3/ch14/psec163.html" target="_blank" rel="noopener">Chicago Notes-Bibliography, &sect;14.163</a>)</h4>
+        <p><strong>Footnote:</strong></p>
+        <code>1. First Last, "Song Title," track ## on Album Title, Label, Year, format.
+
+Accessibility note: Lyrics/descriptive analysis provided by [University Name], [Date], under fair use (17 U.S.C. § 107) for educational accessibility. Lyrics © [Songwriter/Publisher].</code>
+
+        <p style="margin-top:1rem;"><strong>Bibliography:</strong></p>
+        <code>Last, First. "Song Title." Track ## on Album Title. Label, Year. Format.
+
+Accessibility note: Lyrics/descriptive analysis provided by [University Name], [Date], under fair use (17 U.S.C. § 107) for educational accessibility. Lyrics © [Songwriter/Publisher].</code>
+      </div>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--border);">
+      <h3 style="margin-bottom: 1rem;">APA 7th Edition</h3>
+
+      <div class="citation-box">
+        <h4>Video (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/youtube-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
+        <p><strong>Reference list:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;">Last, F. M. (Director). (Year). <em>Title of video</em> [Film/Documentary/Video]. Production Company. URL
 
 Accessibility note: Captions added by [University Name], [Date]. Original work used under fair use (17 U.S.C. &sect; 107) for educational accessibility.</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(Last, Year)</code>
       </div>
 
       <div class="citation-box">
         <h4>Podcast / Audio (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/podcast-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
-        <code>Host, H. H. (Host). (Year, Month Day). Episode title (No. ##) [Audio podcast episode]. In Podcast Name. Publisher/Network. URL
+        <p><strong>Reference list:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;">Last, F. M. (Host). (Year, Month Day). Episode title (No. ##) [Audio podcast episode]. In <em>Podcast Name</em>. Publisher/Network. URL
 
 Accessibility note: Transcript created by [University Name], [Date], for accessibility under fair use (17 U.S.C. &sect; 107).</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(Last, Year)</code>
       </div>
 
       <div class="citation-box">
-        <h4>Music (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/music-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
-        <code>Artist, A. A. (Year). Song title [Song]. On Album title. Label.
+        <h4>Music (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/musical-score-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
+        <p><strong>Reference list:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;">Last, F. M. (Year). <em>Song title</em> [Song]. On <em>Album title</em>. Label.
 
 Accessibility note: Lyrics/descriptive analysis provided by [University Name], [Date], under fair use (17 U.S.C. &sect; 107) for educational accessibility. Lyrics &copy; [Songwriter/Publisher].</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(Last, Year)</code>
+      </div>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 2px solid var(--border);">
+      <h3 style="margin-bottom: 1rem;">MLA 9th Edition</h3>
+
+      <div class="citation-box">
+        <h4>Video (<a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener">MLA 9th Edition</a>)</h4>
+        <p><strong>Works Cited:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;"><em>Title of Video</em>. Directed by First Last, Production Company, Year.
+
+Accessibility note: Captions added by [University Name], [Date]. Original work used under fair use (17 U.S.C. &sect; 107) for educational accessibility.</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(<em>Title of Video</em> 00:00:00&ndash;00:00:00)</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Podcast / Audio (<a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener">MLA 9th Edition</a>)</h4>
+        <p><strong>Works Cited:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;">Last, First. "Episode Title." <em>Podcast Name</em>, Publisher/Network, Day Month Year. URL.
+
+Accessibility note: Transcript created by [University Name], [Date], for accessibility under fair use (17 U.S.C. &sect; 107).</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(Last 00:00:00&ndash;00:00:00)</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Music (<a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener">MLA 9th Edition</a>)</h4>
+        <p><strong>Works Cited:</strong></p>
+        <code style="padding-left:0.5in; text-indent:-0.5in;">Last, First. "Song Title." <em>Album Title</em>, Label, Year.
+
+Accessibility note: Lyrics/descriptive analysis provided by [University Name], [Date], under fair use (17 U.S.C. &sect; 107) for educational accessibility. Lyrics &copy; [Songwriter/Publisher].</code>
+
+        <p style="margin-top:1rem;"><strong>In-text citation:</strong></p>
+        <code>(Last)</code>
       </div>
     </div>
 
@@ -766,7 +903,7 @@ Accessibility note: Lyrics/descriptive analysis provided by [University Name], [
       <ul>
         <li>Full bibliographic citation of the original</li>
         <li>Date of fair use analysis</li>
-        <li>The <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">four-factor analysis</a> (brief rationale for each factor)</li>
+        <li>The <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">four-factor analysis</a> (brief rationale for each factor)</li>
         <li>Whether you searched for an existing accessible version and the outcome</li>
         <li>Who performed the remediation and what was done</li>
         <li>Where the remediated file is stored and who has access</li>
@@ -838,7 +975,7 @@ Accessibility note: Lyrics/descriptive analysis provided by [University Name], [
         <li><strong>Step 4:</strong> Apply maximum access restrictions (enrolled students only, no downloading, time-limited access)</li>
         <li><strong>Step 5:</strong> Consider replacing the content with an accessible alternative for future semesters</li>
       </ul>
-      <p class="legal-ref">ADA Title II obligations are independent of copyright; see also <a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">Chafee Amendment (17 U.S.C. &sect; 121)</a> for print disabilities</p>
+      <p class="legal-ref">ADA Title II obligations are independent of copyright; see also <a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">Chafee Amendment (17 U.S.C. &sect; 121)</a> for print disabilities</p>
     </div>
 
     <div class="node accommodation" style="border-left-color: #8e44ad;">
@@ -876,17 +1013,17 @@ Accessibility note: Lyrics/descriptive analysis provided by [University Name], [
             <td>Requires WCAG 2.0 AA for ICT; captions and audio description required for video</td>
           </tr>
           <tr>
-            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a></strong><br>(17 U.S.C. &sect; 110(2))</td>
+            <td><strong><a href="https://www.ala.org/advocacy/federal-resources/copyright/teachact/distanceeducation" target="_blank" rel="noopener">TEACH Act</a></strong><br>(<a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. § 110(2)</a>)</td>
             <td>Accredited nonprofit educational institutions</td>
-            <td>Permits display/performance of copyrighted works in online courses with conditions; limited portions for sound recordings</td>
+            <td>Permits display/performance in mediated instructional activities with strict conditions; significant limitations for asynchronous online courses; limited portions for sound recordings. Fair Use often provides stronger basis for accessibility remediation.</td>
           </tr>
           <tr>
-            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">Fair Use</a></strong><br>(17 U.S.C. &sect; 107)</td>
+            <td><strong><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">Fair Use</a></strong><br>(<a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. § 107</a>)</td>
             <td>All uses of copyrighted works</td>
-            <td>Four-factor balancing test; accessibility captioning for education is widely supported</td>
+            <td>Four-factor balancing test; accessibility captioning for education is widely supported. Fair Use often provides stronger basis for accessibility remediation than TEACH Act.</td>
           </tr>
           <tr>
-            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">Chafee Amendment</a></strong><br>(17 U.S.C. &sect; 121)</td>
+            <td><strong><a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">Chafee Amendment</a></strong><br>(17 U.S.C. &sect; 121)</td>
             <td>Authorized entities serving people with print disabilities</td>
             <td>Permits reproduction in specialized formats without rights holder permission</td>
           </tr>
@@ -961,7 +1098,7 @@ Accessibility note: Lyrics/descriptive analysis provided by [University Name], [
   <div class="container">
     <h3>Sources &amp; Resources</h3>
     <ul>
-      <li><a href="https://guides.lib.ku.edu/copyright/teaching" target="_blank" rel="noopener">University of Kansas Libraries: Copyright and Teaching</a> &mdash; Practical guide to using copyrighted works in classroom and online instruction, including the Classroom Use Exemption and fair use considerations</li>
+      <li><a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">U.S. Copyright Office: TEACH Act Register's Report</a> &mdash; U.S. Copyright Office report to Congress on the Technology, Education, and Copyright Harmonization Act, including analysis of distance education provisions</li>
       <li><a href="https://copyright.psu.edu/copyright-basics/teach-act/" target="_blank" rel="noopener">Penn State: TEACH Act Overview</a> &mdash; Step-by-step requirements for using copyrighted materials in online education under 17 U.S.C. &sect; 110(2)</li>
       <li><a href="https://www.ala.org/advocacy/federal-resources/copyright/teachact/distanceeducation" target="_blank" rel="noopener">American Library Association: Distance Education and the TEACH Act</a> &mdash; ALA's comprehensive guide to TEACH Act provisions, limitations, and best practices for distance education</li>
       <li><a href="https://www.congress.gov/bill/119th-congress/senate-bill/2516" target="_blank" rel="noopener">S.2516 &mdash; TEACH Act (119th Congress)</a> &mdash; Current congressional legislation on the Technology, Education, and Copyright Harmonization Act</li>
@@ -973,11 +1110,10 @@ Accessibility note: Lyrics/descriptive analysis provided by [University Name], [
     <h3>Legal References</h3>
     <ul>
       <li><a href="https://www.ada.gov/law-and-regs/regulations/title-ii-2010-regulations/" target="_blank" rel="noopener">ADA Title II Regulations (28 CFR Part 35)</a> &mdash; Full text of ADA Title II nondiscrimination regulations for state and local government services (ADA.gov)</li>
-      <li><a href="https://guides.lib.ku.edu/copyright" target="_blank" rel="noopener">University of Kansas Libraries: Copyright and Fair Use</a> &mdash; Comprehensive overview of copyright law, the four-factor fair use test, and practical guidance for educators</li>
-      <li><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107 &mdash; Fair Use</a> &mdash; Statutory framework for the four-factor fair use test (Cornell Law Institute)</li>
-      <li><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2) &mdash; TEACH Act</a> &mdash; Exemptions for performance and display of works in online education (Cornell Law Institute)</li>
+      <li><a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">17 U.S.C. &sect; 107 &mdash; Fair Use (U.S. Copyright Office)</a> &mdash; Statutory framework for the four-factor fair use test, with guidance and examples from the U.S. Copyright Office</li>
+      <li><a href="https://www.ala.org/advocacy/federal-resources/copyright/teachact/distanceeducation" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2) &mdash; TEACH Act</a> &mdash; American Library Association guide to TEACH Act exemptions for online education</li>
       <li><a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">The Chafee Amendment (P.L. 104-197) &mdash; Library of Congress National Library Service</a> &mdash; History, purpose, and full text of the 1996 copyright exception for reproducing works in accessible formats for people with print disabilities</li>
-      <li><a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">17 U.S.C. &sect; 121 &mdash; Chafee Amendment Statute</a> &mdash; Current codified text of the copyright exception for blind and print-disabled individuals (Cornell Law Institute)</li>
+      <li><a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">17 U.S.C. &sect; 121 &mdash; Chafee Amendment Statute</a> &mdash; Current codified text of the copyright exception for blind and print-disabled individuals (Cornell Law Institute)</li>
       <li><a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 &mdash; Web Content Accessibility Guidelines</a> &mdash; W3C technical standard defining Level AA success criteria for media accessibility</li>
       <li><a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508 &mdash; IT Accessibility Standards</a> &mdash; Federal ICT accessibility requirements including captioning and audio description (Section508.gov)</li>
       <li><a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 &mdash; U.S. Department of Education</a> &mdash; Official ED.gov resource on Section 504 of the Rehabilitation Act, prohibiting disability discrimination in federally funded programs</li>
