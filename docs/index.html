@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copyrighted Media Accessibility Remediation Flowchart</title>
+<style>
+  :root {
+    --primary: #1a5276;
+    --primary-light: #2980b9;
+    --accent: #27ae60;
+    --warning: #e67e22;
+    --danger: #c0392b;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --text: #2c3e50;
+    --text-light: #5d6d7e;
+    --border: #d5dbdb;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  a { color: var(--primary-light); text-decoration: underline; }
+  a:hover { color: var(--primary); }
+  a:focus { outline: 2px solid var(--primary-light); outline-offset: 2px; }
+
+  .header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+  .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .header p { opacity: 0.9; font-size: 0.95rem; max-width: 700px; margin: 0 auto; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+
+  /* Navigation tabs */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab-btn:hover { background: #eef2f7; }
+  .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); background: #eef2f7; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Decision nodes */
+  .node {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 5px solid var(--primary);
+    position: relative;
+  }
+  .node.decision { border-left-color: var(--warning); }
+  .node.action { border-left-color: var(--accent); }
+  .node.warning { border-left-color: var(--danger); }
+  .node.accommodation { border-left-color: #8e44ad; }
+
+  .node h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .node p, .node ul { font-size: 0.9rem; color: var(--text-light); }
+  .node ul { padding-left: 1.25rem; margin-top: 0.4rem; }
+  .node ul li { margin-bottom: 0.3rem; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-decision { background: #fef3e2; color: #b7791f; }
+  .badge-action { background: #e6f9ee; color: #1e7e46; }
+  .badge-warning { background: #fde8e8; color: #9b2c2c; }
+  .badge-info { background: #e8f0fe; color: #1a5276; }
+  .badge-accommodation { background: #f3e8ff; color: #6b21a8; }
+
+  /* Expandable sections */
+  .expandable-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .expandable-header::after {
+    content: '\25B8';
+    font-size: 1.8rem;
+    transition: transform 0.2s;
+    color: var(--text-light);
+  }
+  .expandable-header.open::after { transform: rotate(90deg); }
+  .expandable-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .expandable-body.open { max-height: 2000px; }
+  .expandable-body .inner { padding-top: 0.75rem; }
+
+  /* Buttons for choices */
+  .choices { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+  .choice-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--primary);
+    background: white;
+    color: var(--primary);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+  .choice-btn:hover { background: var(--primary); color: white; }
+  .choice-btn.selected { background: var(--primary); color: white; }
+
+  /* Arrow connector — LARGER for visibility */
+  .arrow {
+    text-align: center;
+    color: var(--primary-light);
+    font-size: 2.4rem;
+    margin: 0.4rem 0;
+    line-height: 1;
+  }
+
+  /* Citation box */
+  .citation-box {
+    background: #fefce8;
+    border: 1px solid #facc15;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+  }
+  .citation-box h4 { margin-bottom: 0.5rem; color: #854d0e; }
+  .citation-box code {
+    display: block;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 0.4rem 0;
+    word-break: break-all;
+    white-space: pre-wrap;
+  }
+
+  /* Flow path hidden state */
+  .flow-step { display: none; }
+  .flow-step.visible { display: block; }
+
+  /* Connector line */
+  .connector {
+    width: 4px;
+    height: 24px;
+    background: var(--primary-light);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* Print styles */
+  @media print {
+    .tab-bar, .choice-btn, .header { break-inside: avoid; }
+    .tab-content { display: block !important; }
+    .flow-step { display: block !important; }
+    .expandable-body { max-height: none !important; }
+    body { font-size: 11pt; }
+    .node { box-shadow: none; border: 1px solid #ccc; }
+    .site-footer { break-inside: avoid; }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .tab-btn { font-size: 0.8rem; padding: 0.75rem 0.5rem; }
+    .choices { flex-direction: column; }
+  }
+
+  .legal-ref {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+  .legal-ref a { color: var(--text-light); }
+  .legal-ref a:hover { color: var(--primary); }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .reset-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--text-light);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+  .reset-btn:hover { background: var(--text); }
+
+  .summary-panel {
+    background: #eef6fb;
+    border: 1px solid #bbd6ec;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .summary-panel h4 { color: var(--primary); margin-bottom: 0.5rem; }
+
+  table.ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+  }
+  table.ref-table th, table.ref-table td {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+  table.ref-table th {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+  }
+  table.ref-table th a { color: white; }
+  table.ref-table tr:nth-child(even) { background: #f4f7fa; }
+
+  /* Footer / Sources */
+  .site-footer {
+    background: var(--primary);
+    color: white;
+    padding: 2rem;
+    margin-top: 3rem;
+  }
+  .site-footer .container { padding: 0; }
+  .site-footer h3 { font-size: 1.1rem; margin-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 0.5rem; }
+  .site-footer ul { list-style: none; padding: 0; }
+  .site-footer ul li { margin-bottom: 0.6rem; font-size: 0.9rem; }
+  .site-footer a { color: #ffffff; text-decoration: underline; }
+  .site-footer a:hover,
+  .site-footer a:focus { color: #ffffff; background: rgba(255,255,255,0.2); outline: 2px solid white; outline-offset: 2px; border-radius: 3px; padding: 0.05rem 0.2rem; }
+  .site-footer .disclaimer { font-size: 0.8rem; opacity: 0.7; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Copyrighted Media Accessibility Remediation</h1>
+  <p>Interactive decision flowchart for instructional designers at public universities remediating copyrighted videos, podcasts, and music for accessible online courses</p>
+</div>
+
+<div class="container">
+
+  <!-- TAB BAR -->
+  <div class="tab-bar" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" onclick="showTab('flowchart')">Decision Flowchart</button>
+    <button class="tab-btn" role="tab" aria-selected="false" onclick="showTab('citation')">Citation Procedures</button>
+    <button class="tab-btn" role="tab" aria-selected="false" onclick="showTab('accommodation')">Title II Accommodations</button>
+    <button class="tab-btn" role="tab" aria-selected="false" onclick="showTab('reference')">Legal Quick Reference</button>
+  </div>
+
+  <!-- ==================== TAB 1: FLOWCHART ==================== -->
+  <div id="tab-flowchart" class="tab-content active">
+
+    <!-- STEP 1 -->
+    <div class="node" id="step1">
+      <h3><span class="step-number">1</span> Identify the Copyrighted Media</h3>
+      <p>What type of media do you need to make accessible for your online course?</p>
+      <div class="choices">
+        <button class="choice-btn" onclick="selectMedia('video')">Video</button>
+        <button class="choice-btn" onclick="selectMedia('podcast')">Podcast / Audio</button>
+        <button class="choice-btn" onclick="selectMedia('music')">Music</button>
+      </div>
+    </div>
+
+    <!-- ===== VIDEO BRANCH ===== -->
+    <div id="branch-video" style="display:none;">
+      <div class="connector"></div>
+      <div class="arrow" aria-hidden="true">&#9660;</div>
+
+      <div class="node decision">
+        <h3><span class="badge badge-decision">Decision</span> Is an accessible version already available?</h3>
+        <p>Check the publisher, distributor, or platform (e.g., <a href="https://www.kanopy.com" target="_blank" rel="noopener">Kanopy</a>, <a href="https://www.swank.com" target="_blank" rel="noopener">Swank</a>, <a href="https://video.infobase.com" target="_blank" rel="noopener">Films on Demand</a>) for a version with captions, subtitles, or audio description.</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="showVideoPath('accessible-exists')">Yes, accessible version exists</button>
+          <button class="choice-btn" onclick="showVideoPath('no-accessible')">No accessible version available</button>
+        </div>
+      </div>
+
+      <!-- Path: accessible exists -->
+      <div id="vpath-accessible-exists" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node action">
+          <h3><span class="badge badge-action">Action</span> Use the accessible version</h3>
+          <p>Obtain and use the already-captioned or described version. Verify caption quality meets <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a> standards (accuracy, synchronization, speaker identification). Confirm your licensing agreement covers online course use.</p>
+          <p class="legal-ref">Legal basis: <a href="https://www.ecfr.gov/current/title-28/chapter-I/part-35" target="_blank" rel="noopener">ADA Title II (28 CFR 35.200)</a>; WCAG 2.1 AA Success Criteria <a href="https://www.w3.org/TR/WCAG21/#captions-prerecorded" target="_blank" rel="noopener">1.2.2</a>, <a href="https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded" target="_blank" rel="noopener">1.2.3</a>, <a href="https://www.w3.org/TR/WCAG21/#audio-description-prerecorded" target="_blank" rel="noopener">1.2.5</a></p>
+        </div>
+      </div>
+
+      <!-- Path: no accessible version -->
+      <div id="vpath-no-accessible" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+
+        <div class="node decision">
+          <h3><span class="badge badge-decision">Decision</span> Does the <a href="https://www.copyright.gov/docs/regstat031301.html" target="_blank" rel="noopener">TEACH Act</a> apply?</h3>
+          <div class="expandable-header" onclick="toggleExpand(this)">
+            <span>View TEACH Act checklist</span>
+          </div>
+          <div class="expandable-body">
+            <div class="inner">
+              <ul>
+                <li>Institution is accredited and nonprofit</li>
+                <li>Use is under instructor supervision as part of mediated instructional activities</li>
+                <li>Content is directly related to and of material assistance to the teaching content</li>
+                <li>Only "reasonable and limited portions" are used (analogous to a live classroom display)</li>
+                <li>Access is limited to enrolled students via LMS authentication</li>
+                <li>Downstream copying is technologically prevented</li>
+                <li>Institution has a copyright policy and provides copyright notices</li>
+                <li>You are NOT using content primarily produced for the digital education market</li>
+              </ul>
+              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; TEACH Act (2002)</p>
+            </div>
+          </div>
+          <div class="choices" style="margin-top:1rem;">
+            <button class="choice-btn" onclick="showVideoPath2('teach-yes')">Yes, TEACH Act applies</button>
+            <button class="choice-btn" onclick="showVideoPath2('teach-no')">No / Unsure</button>
+          </div>
+        </div>
+
+        <div id="vpath2-teach-yes" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node action">
+            <h3><span class="badge badge-action">Action</span> Caption under TEACH Act + Fair Use for Accessibility</h3>
+            <p>You may caption the video as an accessibility remediation. The act of adding captions to copyrighted video for accessibility is generally supported by <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> (transformative purpose; no market substitution) when combined with TEACH Act coverage.</p>
+            <ul>
+              <li>Create or commission accurate captions (99%+ accuracy target)</li>
+              <li>Include speaker identification and relevant non-speech audio</li>
+              <li>Add audio description track if visual content is essential</li>
+              <li>Store captioned version securely in your LMS; restrict access to enrolled students</li>
+              <li>Do not distribute the captioned file outside the course</li>
+              <li>Document your fair use analysis (keep on file)</li>
+            </ul>
+            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a> (Fair Use); <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> (TEACH Act); <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
+          </div>
+        </div>
+
+        <div id="vpath2-teach-no" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node decision">
+            <h3><span class="badge badge-decision">Decision</span> Does <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">Fair Use</a> support captioning?</h3>
+            <p>Apply the four-factor fair use test:</p>
+            <div class="expandable-header" onclick="toggleExpand(this)">
+              <span>View four-factor analysis for accessibility captioning</span>
+            </div>
+            <div class="expandable-body">
+              <div class="inner">
+                <ul>
+                  <li><strong>Factor 1 &mdash; Purpose:</strong> Nonprofit educational + accessibility accommodation = strongly favors fair use. The captioning is transformative (adds access, does not substitute for original purpose).</li>
+                  <li><strong>Factor 2 &mdash; Nature of work:</strong> Creative works (film, documentary) weigh slightly against fair use, but this is less significant when the purpose is accessibility rather than copying content.</li>
+                  <li><strong>Factor 3 &mdash; Amount used:</strong> You may need to caption the entire work. Courts have allowed using entire works when necessary for the purpose. For accessibility, captioning the full work is often unavoidable.</li>
+                  <li><strong>Factor 4 &mdash; Market effect:</strong> Captioning for enrolled students does not substitute for the market. You are not distributing a competing product. This strongly favors fair use.</li>
+                </ul>
+                <p style="margin-top:0.75rem;"><strong>Overall:</strong> Captioning copyrighted video for enrolled students with disabilities at a public university is widely considered fair use, especially when no accessible version is commercially available. The <a href="https://www.copyright.gov/" target="_blank" rel="noopener">U.S. Copyright Office</a> has acknowledged this principle.</p>
+                <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; U.S. Copyright Office guidance on accessibility</p>
+              </div>
+            </div>
+            <div class="choices" style="margin-top:1rem;">
+              <button class="choice-btn" onclick="showVideoPath3('fu-yes')">Fair use likely applies</button>
+              <button class="choice-btn" onclick="showVideoPath3('fu-no')">Fair use uncertain &mdash; seek permission</button>
+            </div>
+          </div>
+
+          <div id="vpath3-fu-yes" class="flow-step">
+            <div class="connector"></div>
+            <div class="arrow" aria-hidden="true">&#9660;</div>
+            <div class="node action">
+              <h3><span class="badge badge-action">Action</span> Caption under Fair Use</h3>
+              <ul>
+                <li>Document your four-factor fair use analysis in writing</li>
+                <li>Confirm no accessible version is commercially available at a fair price</li>
+                <li>Create or commission <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a>-compliant captions</li>
+                <li>Add audio description if visual content conveys essential information</li>
+                <li>Restrict access to enrolled students only</li>
+                <li>Store the fair use rationale with your course files</li>
+              </ul>
+              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 of the Rehabilitation Act</a></p>
+            </div>
+          </div>
+
+          <div id="vpath3-fu-no" class="flow-step">
+            <div class="connector"></div>
+            <div class="arrow" aria-hidden="true">&#9660;</div>
+            <div class="node warning">
+              <h3><span class="badge badge-warning">Caution</span> Seek Permission or License</h3>
+              <ul>
+                <li>Contact the rights holder to request permission to caption</li>
+                <li>Check if your institution has a blanket license (e.g., <a href="https://www.copyright.com/" target="_blank" rel="noopener">CCC</a>, <a href="https://www.swank.com/" target="_blank" rel="noopener">Swank</a>)</li>
+                <li>Negotiate captioning rights in your licensing agreement</li>
+                <li>If permission is denied, consult your university's <a href="https://generalcounsel.ku.edu/intellectual-property" target="_blank" rel="noopener">Office of General Counsel</a> (or equivalent) &mdash; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA</a> obligations may still require remediation</li>
+                <li>Consider replacing the content with an openly licensed alternative (<a href="https://creativecommons.org/" target="_blank" rel="noopener">Creative Commons</a>, <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER</a>)</li>
+              </ul>
+              <p class="legal-ref">Note: ADA compliance obligations are not waived by copyright claims. Consult legal counsel if rights holder refuses permission.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PODCAST / AUDIO BRANCH ===== -->
+    <div id="branch-podcast" style="display:none;">
+      <div class="connector"></div>
+      <div class="arrow" aria-hidden="true">&#9660;</div>
+
+      <div class="node decision">
+        <h3><span class="badge badge-decision">Decision</span> Is a transcript already available?</h3>
+        <p>Check the podcast publisher's website, RSS feed, or hosting platform for an existing transcript.</p>
+        <div class="choices">
+          <button class="choice-btn" onclick="showPodcastPath('transcript-yes')">Yes, transcript exists</button>
+          <button class="choice-btn" onclick="showPodcastPath('transcript-no')">No transcript available</button>
+        </div>
+      </div>
+
+      <div id="ppath-transcript-yes" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node action">
+          <h3><span class="badge badge-action">Action</span> Use the existing transcript</h3>
+          <ul>
+            <li>Verify transcript accuracy and completeness</li>
+            <li>Ensure speaker identification is included</li>
+            <li>Check that significant non-speech audio (music cues, sound effects) is described</li>
+            <li>Format transcript as accessible HTML or provide in an accessible document format alongside the audio</li>
+            <li>Provide synchronized captions if the audio is embedded in a media player</li>
+          </ul>
+          <p class="legal-ref"><a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">WCAG 2.1 AA Success Criteria 1.2.1</a> (audio-only prerecorded)</p>
+        </div>
+      </div>
+
+      <div id="ppath-transcript-no" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node decision">
+          <h3><span class="badge badge-decision">Decision</span> How are you using the podcast?</h3>
+          <div class="choices">
+            <button class="choice-btn" onclick="showPodcastPath2('link')">Linking to external site</button>
+            <button class="choice-btn" onclick="showPodcastPath2('embed')">Embedding or uploading in LMS</button>
+          </div>
+        </div>
+
+        <div id="ppath2-link" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node action">
+            <h3><span class="badge badge-action">Action</span> Transcribe under Fair Use for Accessibility</h3>
+            <p>Creating a transcript of a copyrighted podcast for student accessibility is a strong <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> case. A transcript is a different modality from the audio &mdash; it provides access, not a market substitute.</p>
+            <ul>
+              <li>Create an accurate transcript with speaker labels</li>
+              <li>Note significant non-speech audio in brackets</li>
+              <li>Provide transcript alongside the link in your LMS</li>
+              <li>Restrict access to enrolled students</li>
+              <li>Document your fair use rationale</li>
+            </ul>
+            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a>; <a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">WCAG 1.2.1</a></p>
+          </div>
+        </div>
+
+        <div id="ppath2-embed" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node decision">
+            <h3><span class="badge badge-decision">Decision</span> Does the <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a> cover the audio use?</h3>
+            <p>For audio embedded or uploaded to the LMS, check the TEACH Act checklist (same as video). Only "reasonable and limited portions" of sound recordings are covered &mdash; <strong>not the entire recording</strong> for music/dramatic works.</p>
+            <div class="choices">
+              <button class="choice-btn" onclick="showPodcastPath3('teach-covers')">TEACH Act applies (limited portion)</button>
+              <button class="choice-btn" onclick="showPodcastPath3('teach-no')">Full podcast needed / TEACH doesn't apply</button>
+            </div>
+          </div>
+
+          <div id="ppath3-teach-covers" class="flow-step">
+            <div class="connector"></div>
+            <div class="arrow" aria-hidden="true">&#9660;</div>
+            <div class="node action">
+              <h3><span class="badge badge-action">Action</span> Transcribe under TEACH Act + Fair Use</h3>
+              <ul>
+                <li>Use the permitted portion under <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a></li>
+                <li>Create accurate transcript for that portion</li>
+                <li>Restrict access via LMS to enrolled students</li>
+                <li>Apply DRM or copy-prevention as feasible</li>
+                <li>File your fair use analysis</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="ppath3-teach-no" class="flow-step">
+            <div class="connector"></div>
+            <div class="arrow" aria-hidden="true">&#9660;</div>
+            <div class="node action">
+              <h3><span class="badge badge-action">Action</span> Transcribe under Fair Use for Accessibility</h3>
+              <p>Even without TEACH Act coverage, <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> strongly supports creating a transcript for accessibility. Apply the four-factor test:</p>
+              <ul>
+                <li>Purpose: nonprofit educational + accessibility = transformative</li>
+                <li>Amount: full transcription may be necessary for access</li>
+                <li>Market effect: a text transcript does not substitute for the audio experience</li>
+              </ul>
+              <ul>
+                <li>Create full transcript; restrict to enrolled students</li>
+                <li>Document fair use rationale</li>
+                <li>If the content is a dramatic work or music performance, consider licensing or replacing with <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER</a></li>
+              </ul>
+              <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MUSIC BRANCH ===== -->
+    <div id="branch-music" style="display:none;">
+      <div class="connector"></div>
+      <div class="arrow" aria-hidden="true">&#9660;</div>
+
+      <div class="node" style="border-left-color: var(--danger);">
+        <h3><span class="badge badge-warning">Important</span> Music has additional copyright layers</h3>
+        <p>Music involves multiple rights: the composition (publishing rights), the sound recording (master rights), performance rights (<a href="https://www.ascap.com/" target="_blank" rel="noopener">ASCAP</a>/<a href="https://www.bmi.com/" target="_blank" rel="noopener">BMI</a>/<a href="https://www.sesac.com/" target="_blank" rel="noopener">SESAC</a>), and synchronization rights. Accessibility remediation for music in online courses requires careful analysis.</p>
+      </div>
+
+      <div class="connector"></div>
+      <div class="arrow" aria-hidden="true">&#9660;</div>
+
+      <div class="node decision">
+        <h3><span class="badge badge-decision">Decision</span> How is the music being used in your course?</h3>
+        <div class="choices">
+          <button class="choice-btn" onclick="showMusicPath('background')">Background in a video</button>
+          <button class="choice-btn" onclick="showMusicPath('study')">Object of study (music course)</button>
+          <button class="choice-btn" onclick="showMusicPath('standalone')">Standalone listening assignment</button>
+        </div>
+      </div>
+
+      <!-- Music: background -->
+      <div id="mpath-background" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node action">
+          <h3><span class="badge badge-action">Action</span> Describe in captions; no separate music remediation needed</h3>
+          <ul>
+            <li>In captions, describe the music contextually: <em>[upbeat jazz music plays]</em> or <em>[somber orchestral music]</em></li>
+            <li>If the music conveys emotional or narrative meaning, include brief description in audio description track</li>
+            <li>You are not reproducing or distributing the music separately &mdash; no additional copyright clearance needed for the description</li>
+            <li>If lyrics are relevant to the content, include them in the captions</li>
+          </ul>
+          <p class="legal-ref"><a href="https://www.w3.org/TR/WCAG21/#captions-prerecorded" target="_blank" rel="noopener">WCAG 1.2.2</a> (Captions); fair use covers descriptive captioning</p>
+        </div>
+      </div>
+
+      <!-- Music: object of study -->
+      <div id="mpath-study" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node decision">
+          <h3><span class="badge badge-decision">Decision</span> What accessibility remediation is needed?</h3>
+          <div class="choices">
+            <button class="choice-btn" onclick="showMusicPath2('lyrics')">Lyrics / libretto transcript</button>
+            <button class="choice-btn" onclick="showMusicPath2('description')">Descriptive analysis for D/deaf students</button>
+            <button class="choice-btn" onclick="showMusicPath2('visual')">Visual representation for D/deaf students</button>
+          </div>
+        </div>
+
+        <div id="mpath2-lyrics" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node action">
+            <h3><span class="badge badge-action">Action</span> Provide lyrics under Fair Use / TEACH Act</h3>
+            <ul>
+              <li>Use only the portion needed for the lesson (<a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">fair use</a> factor 3)</li>
+              <li>Provide lyrics in an accessible format within the LMS</li>
+              <li>Cite the songwriter, publisher, and copyright year</li>
+              <li>For full lyrics in a music appreciation course, document your fair use analysis carefully (amount used may be the whole work, but educational purpose and restricted access support fair use)</li>
+              <li>Consider linking to licensed lyrics databases (e.g., services your library subscribes to)</li>
+            </ul>
+            <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a></p>
+          </div>
+        </div>
+
+        <div id="mpath2-description" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node action">
+            <h3><span class="badge badge-action">Action</span> Create descriptive text analysis</h3>
+            <ul>
+              <li>Write original descriptive text analyzing musical elements (tempo, key, instrumentation, dynamics, form)</li>
+              <li>This is original scholarly commentary, not a reproduction &mdash; strong fair use</li>
+              <li>Include visual waveform or spectrogram representations if helpful</li>
+              <li>Pair with any available score excerpts (brief portions) under fair use</li>
+              <li>Collaborate with Disability Services for student-specific needs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="mpath2-visual" class="flow-step">
+          <div class="connector"></div>
+          <div class="arrow" aria-hidden="true">&#9660;</div>
+          <div class="node action">
+            <h3><span class="badge badge-action">Action</span> Create visual/tactile representations</h3>
+            <ul>
+              <li>Generate waveform visualizations, spectrograms, or graphic scores</li>
+              <li>These are transformative works &mdash; strong fair use case</li>
+              <li>Use color-coded notation for musical elements</li>
+              <li>Provide alternative text for all visual representations</li>
+              <li>Coordinate with Disability Services for individual accommodation plans</li>
+            </ul>
+            <p class="legal-ref">Transformative use under <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107</a>; <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a> reasonable accommodation</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music: standalone -->
+      <div id="mpath-standalone" class="flow-step">
+        <div class="connector"></div>
+        <div class="arrow" aria-hidden="true">&#9660;</div>
+        <div class="node warning">
+          <h3><span class="badge badge-warning">Caution</span> Standalone music has limited TEACH Act coverage</h3>
+          <p>The <a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a> limits use of sound recordings to "reasonable and limited portions." Full performances typically require licensing.</p>
+          <ul>
+            <li>Check if your institution has streaming licenses (<a href="https://www.naxos.com/" target="_blank" rel="noopener">Naxos</a>, <a href="https://alexanderstreet.com/" target="_blank" rel="noopener">Alexander Street</a>, etc.)</li>
+            <li>Use licensed streaming platforms that provide their own accessibility features</li>
+            <li>For accessibility: provide a transcript of any spoken elements, descriptive program notes, and lyrics</li>
+            <li>If a D/deaf student needs to engage with the music, work with Disability Services for an individualized accommodation plan</li>
+            <li>Consider <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER</a> or <a href="https://creativecommons.org/" target="_blank" rel="noopener">Creative Commons</a>-licensed alternatives</li>
+          </ul>
+          <p class="legal-ref"><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2)</a> &mdash; limited to "reasonable and limited portions" for sound recordings</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINAL COMMON STEP: Documentation -->
+    <div id="final-step" style="display:none;">
+      <div class="connector"></div>
+      <div class="arrow" aria-hidden="true">&#9660;</div>
+      <div class="node" style="border-left-color: var(--primary); background: #f0f7fc;">
+        <h3><span class="step-number">&#10003;</span> Document Everything</h3>
+        <p>Regardless of the path you followed, always complete these documentation steps:</p>
+        <ul>
+          <li><strong>Fair use analysis:</strong> Record your <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">four-factor analysis</a> and date it</li>
+          <li><strong>Accessibility verification:</strong> Confirm remediated content meets <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a></li>
+          <li><strong>Access controls:</strong> Verify LMS restricts access to enrolled students</li>
+          <li><strong>Citation:</strong> Properly cite the original work (see Citation Procedures tab)</li>
+          <li><strong>Retention policy:</strong> Remove or re-evaluate remediated content when the course term ends</li>
+          <li><strong>File storage:</strong> Keep fair use documentation, permission records, and remediation logs with course files</li>
+        </ul>
+      </div>
+      <button class="reset-btn" onclick="resetFlowchart()">Start Over</button>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 2: CITATION PROCEDURES ==================== -->
+  <div id="tab-citation" class="tab-content">
+    <div class="node">
+      <h3>Citation Procedures for Remediated Copyrighted Media</h3>
+      <p>When you caption, transcribe, or otherwise remediate copyrighted media for accessibility, you must cite the original work. Citations serve legal documentation purposes (demonstrating good faith) and academic integrity requirements. Follow <a href="https://apastyle.apa.org/style-grammar-guidelines/references" target="_blank" rel="noopener">APA 7th Edition</a> format.</p>
+    </div>
+
+    <div class="node action">
+      <h3><span class="badge badge-action">Required</span> Within the LMS Course Page</h3>
+      <ul>
+        <li>Include a full citation adjacent to the media (on the same LMS page)</li>
+        <li>Add a copyright notice: <em>"This material is copyrighted. It is provided here under [fair use / TEACH Act / license] for educational accessibility purposes only. Further distribution is prohibited."</em></li>
+        <li>Identify the remediation: <em>"Captions/transcript added by [Institution] for accessibility compliance."</em></li>
+      </ul>
+    </div>
+
+    <div class="node">
+      <h3>Citation Formats by Media Type</h3>
+
+      <div class="citation-box">
+        <h4>Video (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/video-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
+        <code>Director, D. D. (Director). (Year). Title of video [Film/Documentary/Video]. Production Company. URL (if applicable)
+
+Accessibility note: Captions added by [University Name], [Date]. Original work used under fair use (17 U.S.C. &sect; 107) for educational accessibility.</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Podcast / Audio (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/podcast-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
+        <code>Host, H. H. (Host). (Year, Month Day). Episode title (No. ##) [Audio podcast episode]. In Podcast Name. Publisher/Network. URL
+
+Accessibility note: Transcript created by [University Name], [Date], for accessibility under fair use (17 U.S.C. &sect; 107).</code>
+      </div>
+
+      <div class="citation-box">
+        <h4>Music (<a href="https://apastyle.apa.org/style-grammar-guidelines/references/examples/music-references" target="_blank" rel="noopener">APA 7th Edition</a>)</h4>
+        <code>Artist, A. A. (Year). Song title [Song]. On Album title. Label.
+
+Accessibility note: Lyrics/descriptive analysis provided by [University Name], [Date], under fair use (17 U.S.C. &sect; 107) for educational accessibility. Lyrics &copy; [Songwriter/Publisher].</code>
+      </div>
+    </div>
+
+    <div class="node">
+      <h3>Within Caption/Transcript Files</h3>
+      <ul>
+        <li><strong>Caption files (.srt, .vtt):</strong> Include a metadata note at the start of the file with the title, copyright holder, and remediation note</li>
+        <li><strong>Transcript documents:</strong> Include a header with full citation and copyright/fair use notice</li>
+        <li><strong>Audio description scripts:</strong> Note the original work's citation in the script header</li>
+      </ul>
+    </div>
+
+    <div class="node">
+      <h3>Fair Use Documentation File</h3>
+      <p>Maintain a separate fair use log for your department or course. For each remediated work, record:</p>
+      <ul>
+        <li>Full bibliographic citation of the original</li>
+        <li>Date of fair use analysis</li>
+        <li>The <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">four-factor analysis</a> (brief rationale for each factor)</li>
+        <li>Whether you searched for an existing accessible version and the outcome</li>
+        <li>Who performed the remediation and what was done</li>
+        <li>Where the remediated file is stored and who has access</li>
+        <li>Planned review/removal date</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 3: TITLE II ACCOMMODATIONS ==================== -->
+  <div id="tab-accommodation" class="tab-content">
+    <div class="node accommodation" style="border-left-color: #8e44ad;">
+      <h3><span class="badge badge-accommodation">ADA Title II</span> Accessibility Accommodations for Public Universities</h3>
+      <p>As a public university, your institution is subject to <a href="https://www.ecfr.gov/current/title-28/chapter-I/part-35" target="_blank" rel="noopener">ADA Title II (28 CFR Part 35)</a>, <a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 of the Rehabilitation Act</a>, and the <a href="https://www.ada.gov/law-and-regs/regulations/title-ii-2010-regulations/" target="_blank" rel="noopener">2024 Title II Final Rule</a> requiring <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a> compliance. These obligations exist <strong>independently of copyright</strong> &mdash; ADA requirements are not waived by copyright restrictions.</p>
+      <p class="legal-ref">Compliance deadline for entities serving populations of 50,000+: April 24, 2026</p>
+    </div>
+
+    <div class="node accommodation" style="border-left-color: #8e44ad;">
+      <h3>Proactive vs. Reactive Accommodations</h3>
+      <div class="expandable-header" onclick="toggleExpand(this)">
+        <span>View proactive obligations (Universal Design)</span>
+      </div>
+      <div class="expandable-body">
+        <div class="inner">
+          <p><strong>Proactive (required for all courses):</strong></p>
+          <ul>
+            <li>All pre-recorded video must have captions (<a href="https://www.w3.org/TR/WCAG21/#captions-prerecorded" target="_blank" rel="noopener">WCAG 1.2.2</a>)</li>
+            <li>All pre-recorded audio-only content must have a text transcript (<a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">WCAG 1.2.1</a>)</li>
+            <li>Pre-recorded video must have audio description when visual content is not covered by the audio track (<a href="https://www.w3.org/TR/WCAG21/#audio-description-prerecorded" target="_blank" rel="noopener">WCAG 1.2.5</a>)</li>
+            <li>Live video and audio should have real-time captions when feasible</li>
+            <li>This applies to <strong>all</strong> content used in courses, including third-party and licensed content</li>
+          </ul>
+          <p class="legal-ref"><a href="https://www.ada.gov/law-and-regs/regulations/title-ii-2010-regulations/" target="_blank" rel="noopener">2024 ADA Title II Final Rule</a>; <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a>; <a href="https://www.ecfr.gov/current/title-28/chapter-I/part-35" target="_blank" rel="noopener">28 CFR 35.200</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="node accommodation" style="border-left-color: #8e44ad;">
+      <div class="expandable-header" onclick="toggleExpand(this)">
+        <span><strong>Reactive accommodations (individual student requests)</strong></span>
+      </div>
+      <div class="expandable-body">
+        <div class="inner">
+          <p>When a student with a documented disability requests accommodation for specific media:</p>
+          <ul>
+            <li><strong>Process:</strong> Student registers with Disability Services &rarr; accommodation letter sent to instructor &rarr; instructor works with ID/Disability Services to remediate</li>
+            <li><strong>Timeline:</strong> Provide accommodation in a timely manner; best practice is within the same timeframe as the assignment</li>
+            <li><strong>Types of accommodations:</strong>
+              <ul>
+                <li>Captions or CART services for D/deaf or hard-of-hearing students</li>
+                <li>Audio description or tactile materials for blind/low-vision students</li>
+                <li>Extended time for media consumption</li>
+                <li>Alternative assignments when remediation is not feasible</li>
+                <li>Sign language interpretation for live content</li>
+              </ul>
+            </li>
+            <li><strong>Copyright note:</strong> Individual accommodations under ADA have the strongest legal protection. Courts have consistently held that accessibility obligations override copyright when content cannot be obtained in an accessible format</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="node accommodation" style="border-left-color: #8e44ad;">
+      <h3>When Copyright and Accessibility Conflict</h3>
+      <p>If a rights holder refuses permission to caption or transcribe, and no accessible version is available:</p>
+      <ul>
+        <li><strong>Step 1:</strong> Document your good-faith effort to obtain permission or an accessible version</li>
+        <li><strong>Step 2:</strong> Consult your institution's <a href="https://generalcounsel.ku.edu/intellectual-property" target="_blank" rel="noopener">Office of General Counsel</a> (or equivalent) and Disability Services</li>
+        <li><strong>Step 3:</strong> In most cases, your <a href="https://www.ada.gov/topics/title-ii/" target="_blank" rel="noopener">ADA Title II</a> obligation will support proceeding with remediation under fair use. The accommodation is legally required.</li>
+        <li><strong>Step 4:</strong> Apply maximum access restrictions (enrolled students only, no downloading, time-limited access)</li>
+        <li><strong>Step 5:</strong> Consider replacing the content with an accessible alternative for future semesters</li>
+      </ul>
+      <p class="legal-ref">ADA Title II obligations are independent of copyright; see also <a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">Chafee Amendment (17 U.S.C. &sect; 121)</a> for print disabilities</p>
+    </div>
+
+    <div class="node accommodation" style="border-left-color: #8e44ad;">
+      <h3>The <a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">Chafee Amendment</a> (17 U.S.C. &sect; 121)</h3>
+      <p>Signed into law in 1996 (P.L. 104-197), the Chafee Amendment allows authorized entities (including universities) to reproduce or distribute copyrighted works in specialized formats &mdash; including braille, audio, and digital text &mdash; for individuals with print disabilities, without permission from the copyright holder. While primarily applied to text, the principle extends to multimedia when serving students with qualifying disabilities. The 2018 <a href="https://www.wipo.int/treaties/en/ip/marrakesh/" target="_blank" rel="noopener">Marrakesh Treaty</a> Implementation Act expanded these protections.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB 4: LEGAL QUICK REFERENCE ==================== -->
+  <div id="tab-reference" class="tab-content">
+    <div class="node">
+      <h3>Legal Framework Quick Reference</h3>
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th>Law / Standard</th>
+            <th>What It Covers</th>
+            <th>Key Provision for Media Remediation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="https://www.ecfr.gov/current/title-28/chapter-I/part-35" target="_blank" rel="noopener">ADA Title II</a></strong><br>(28 CFR Part 35)</td>
+            <td>Public entities including state universities</td>
+            <td>Requires accessible digital content; <a href="https://www.ada.gov/law-and-regs/regulations/title-ii-2010-regulations/" target="_blank" rel="noopener">2024 Final Rule</a> mandates WCAG 2.1 AA compliance by April 2026</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504</a></strong><br>(Rehabilitation Act)</td>
+            <td>All institutions receiving federal funding</td>
+            <td>Prohibits disability discrimination; requires reasonable accommodations including accessible media</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508</a></strong><br>(Rehabilitation Act)</td>
+            <td>Federal agencies and federally funded programs</td>
+            <td>Requires WCAG 2.0 AA for ICT; captions and audio description required for video</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">TEACH Act</a></strong><br>(17 U.S.C. &sect; 110(2))</td>
+            <td>Accredited nonprofit educational institutions</td>
+            <td>Permits display/performance of copyrighted works in online courses with conditions; limited portions for sound recordings</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">Fair Use</a></strong><br>(17 U.S.C. &sect; 107)</td>
+            <td>All uses of copyrighted works</td>
+            <td>Four-factor balancing test; accessibility captioning for education is widely supported</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">Chafee Amendment</a></strong><br>(17 U.S.C. &sect; 121)</td>
+            <td>Authorized entities serving people with print disabilities</td>
+            <td>Permits reproduction in specialized formats without rights holder permission</td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 AA</a></strong></td>
+            <td>Web content accessibility standard</td>
+            <td>SC <a href="https://www.w3.org/TR/WCAG21/#audio-only-and-video-only-prerecorded" target="_blank" rel="noopener">1.2.1</a> (audio transcript), <a href="https://www.w3.org/TR/WCAG21/#captions-prerecorded" target="_blank" rel="noopener">1.2.2</a> (captions), <a href="https://www.w3.org/TR/WCAG21/#audio-description-or-media-alternative-prerecorded" target="_blank" rel="noopener">1.2.3</a> (audio desc or alt), <a href="https://www.w3.org/TR/WCAG21/#audio-description-prerecorded" target="_blank" rel="noopener">1.2.5</a> (audio desc)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="node">
+      <h3>Decision Matrix: Which Legal Basis Applies?</h3>
+      <table class="ref-table">
+        <thead>
+          <tr>
+            <th>Scenario</th>
+            <th>Primary Legal Basis</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Captioning a licensed video in LMS</td>
+            <td>TEACH Act + Fair Use + ADA Title II</td>
+            <td>Caption; restrict access; document analysis</td>
+          </tr>
+          <tr>
+            <td>Transcribing a podcast linked in course</td>
+            <td>Fair Use + ADA Title II</td>
+            <td>Transcribe; provide alongside link</td>
+          </tr>
+          <tr>
+            <td>Describing background music in captions</td>
+            <td>Fair Use (de minimis / descriptive)</td>
+            <td>Include [music description] in captions</td>
+          </tr>
+          <tr>
+            <td>Providing song lyrics for music course</td>
+            <td>TEACH Act + Fair Use</td>
+            <td>Provide portion needed; cite fully</td>
+          </tr>
+          <tr>
+            <td>Student with disability requests CART for live lecture with embedded video</td>
+            <td>ADA Title II (individual accommodation)</td>
+            <td>Provide CART; strongest legal protection</td>
+          </tr>
+          <tr>
+            <td>Rights holder denies captioning permission</td>
+            <td>ADA Title II overrides; Fair Use</td>
+            <td>Proceed with captioning; consult legal counsel; document everything</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-panel">
+      <h4>Key Principles to Remember</h4>
+      <p><strong>1.</strong> ADA accessibility obligations exist independently of copyright and are not waived by copyright restrictions.</p>
+      <p><strong>2.</strong> Always search for an existing accessible version before creating your own remediation.</p>
+      <p><strong>3.</strong> Document every fair use decision in writing with a dated four-factor analysis.</p>
+      <p><strong>4.</strong> Restrict access to remediated content to enrolled students; remove or re-evaluate at term end.</p>
+      <p><strong>5.</strong> When in doubt, consult your institution's <a href="https://generalcounsel.ku.edu/intellectual-property" target="_blank" rel="noopener">Office of General Counsel</a> (or equivalent) and Disability Services.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== SITE FOOTER: SOURCES ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <h3>Sources &amp; Resources</h3>
+    <ul>
+      <li><a href="https://guides.lib.ku.edu/copyright/teaching" target="_blank" rel="noopener">University of Kansas Libraries: Copyright and Teaching</a> &mdash; Practical guide to using copyrighted works in classroom and online instruction, including the Classroom Use Exemption and fair use considerations</li>
+      <li><a href="https://copyright.psu.edu/copyright-basics/teach-act/" target="_blank" rel="noopener">Penn State: TEACH Act Overview</a> &mdash; Step-by-step requirements for using copyrighted materials in online education under 17 U.S.C. &sect; 110(2)</li>
+      <li><a href="https://www.ala.org/advocacy/federal-resources/copyright/teachact/distanceeducation" target="_blank" rel="noopener">American Library Association: Distance Education and the TEACH Act</a> &mdash; ALA's comprehensive guide to TEACH Act provisions, limitations, and best practices for distance education</li>
+      <li><a href="https://www.congress.gov/bill/119th-congress/senate-bill/2516" target="_blank" rel="noopener">S.2516 &mdash; TEACH Act (119th Congress)</a> &mdash; Current congressional legislation on the Technology, Education, and Copyright Harmonization Act</li>
+      <li><a href="https://www.3playmedia.com/blog/ada-update-final-rule-a-clearer-picture-for-captioning-and-audio-description-in-higher-education/" target="_blank" rel="noopener">3Play Media: ADA Title II Final Rule for Higher Education</a> &mdash; Analysis of captioning and audio description requirements under the 2024 ADA Title II Final Rule</li>
+      <li><a href="https://www.3playmedia.com/blog/ada-title-ii-for-public-entities/" target="_blank" rel="noopener">3Play Media: ADA Title II Compliance for Public Entities in 2026</a> &mdash; Compliance deadlines and requirements for public universities under the updated Title II rule</li>
+      <li><a href="https://itaccessibility.tamu.edu/incorporating_accessibility/copyright_fair_use.html" target="_blank" rel="noopener">Texas A&amp;M IT Accessibility: Copyright or Fair Use</a> &mdash; Fair use assessment principles and scenarios for captioning copyrighted video content</li>
+      <li><a href="https://nationaldeafcenter.org/resource-items/copyright-compliance/" target="_blank" rel="noopener">National Deaf Center: Copyright &amp; Compliance</a> &mdash; U.S. Copyright Office ruling on captioning copyrighted media for deaf and hard-of-hearing students</li>
+    </ul>
+    <h3>Legal References</h3>
+    <ul>
+      <li><a href="https://www.ada.gov/law-and-regs/regulations/title-ii-2010-regulations/" target="_blank" rel="noopener">ADA Title II Regulations (28 CFR Part 35)</a> &mdash; Full text of ADA Title II nondiscrimination regulations for state and local government services (ADA.gov)</li>
+      <li><a href="https://guides.lib.ku.edu/copyright" target="_blank" rel="noopener">University of Kansas Libraries: Copyright and Fair Use</a> &mdash; Comprehensive overview of copyright law, the four-factor fair use test, and practical guidance for educators</li>
+      <li><a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank" rel="noopener">17 U.S.C. &sect; 107 &mdash; Fair Use</a> &mdash; Statutory framework for the four-factor fair use test (Cornell Law Institute)</li>
+      <li><a href="https://www.law.cornell.edu/uscode/text/17/110" target="_blank" rel="noopener">17 U.S.C. &sect; 110(2) &mdash; TEACH Act</a> &mdash; Exemptions for performance and display of works in online education (Cornell Law Institute)</li>
+      <li><a href="https://www.loc.gov/nls/who-we-are/laws-regulations/copyright-law-amendment-1996-pl-104-197/" target="_blank" rel="noopener">The Chafee Amendment (P.L. 104-197) &mdash; Library of Congress National Library Service</a> &mdash; History, purpose, and full text of the 1996 copyright exception for reproducing works in accessible formats for people with print disabilities</li>
+      <li><a href="https://www.law.cornell.edu/uscode/text/17/121" target="_blank" rel="noopener">17 U.S.C. &sect; 121 &mdash; Chafee Amendment Statute</a> &mdash; Current codified text of the copyright exception for blind and print-disabled individuals (Cornell Law Institute)</li>
+      <li><a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">WCAG 2.1 &mdash; Web Content Accessibility Guidelines</a> &mdash; W3C technical standard defining Level AA success criteria for media accessibility</li>
+      <li><a href="https://www.section508.gov/" target="_blank" rel="noopener">Section 508 &mdash; IT Accessibility Standards</a> &mdash; Federal ICT accessibility requirements including captioning and audio description (Section508.gov)</li>
+      <li><a href="https://www.ed.gov/laws-and-policy/individuals-disabilities/section-504" target="_blank" rel="noopener">Section 504 &mdash; U.S. Department of Education</a> &mdash; Official ED.gov resource on Section 504 of the Rehabilitation Act, prohibiting disability discrimination in federally funded programs</li>
+      <li><a href="https://www.copyright.gov/" target="_blank" rel="noopener">U.S. Copyright Office</a> &mdash; Official source for copyright registration, rulings, and fair use guidance</li>
+    </ul>
+    <h3>Institutional Guidance</h3>
+    <p style="font-size:0.9rem; margin-bottom:0.5rem;">For case-specific copyright and intellectual property questions related to accessibility remediation, contact your institution's Office of General Counsel. At the University of Kansas:</p>
+    <ul>
+      <li><a href="https://generalcounsel.ku.edu/intellectual-property" target="_blank" rel="noopener">KU Office of the General Counsel: Intellectual Property</a> &mdash; Copyright, fair use, and IP guidance for KU faculty and staff</li>
+    </ul>
+    <p style="font-size:0.85rem; opacity:0.85; margin-top:0.5rem;">If you are at another institution, contact your equivalent Office of General Counsel or university legal counsel for guidance.</p>
+    <div class="disclaimer">
+      <p>This flowchart is an educational resource for instructional design teams and is not a substitute for legal advice. Consult your institution's Office of General Counsel &mdash; such as the <a href="https://generalcounsel.ku.edu/intellectual-property" target="_blank" rel="noopener">KU Office of the General Counsel</a> or your equivalent &mdash; for case-specific guidance. Content is current as of April 2026.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  event.target.setAttribute('aria-selected','true');
+}
+
+function selectMedia(type) {
+  ['video','podcast','music'].forEach(b => document.getElementById('branch-'+b).style.display = 'none');
+  document.querySelectorAll('.flow-step').forEach(s => s.classList.remove('visible'));
+  document.querySelectorAll('.flow-step').forEach(s => s.style.display = 'none');
+  document.getElementById('final-step').style.display = 'none';
+  document.getElementById('branch-'+type).style.display = 'block';
+  document.querySelectorAll('#step1 .choice-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
+
+function showVideoPath(path) {
+  ['accessible-exists','no-accessible'].forEach(p => {
+    document.getElementById('vpath-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.querySelectorAll('[id^="vpath2-"]').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('[id^="vpath3-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('final-step').style.display = path === 'accessible-exists' ? 'block' : 'none';
+}
+
+function showVideoPath2(path) {
+  ['teach-yes','teach-no'].forEach(p => {
+    document.getElementById('vpath2-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.querySelectorAll('[id^="vpath3-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('final-step').style.display = path === 'teach-yes' ? 'block' : 'none';
+}
+
+function showVideoPath3(path) {
+  ['fu-yes','fu-no'].forEach(p => {
+    document.getElementById('vpath3-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.getElementById('final-step').style.display = 'block';
+}
+
+function showPodcastPath(path) {
+  ['transcript-yes','transcript-no'].forEach(p => {
+    document.getElementById('ppath-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.querySelectorAll('[id^="ppath2-"]').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('[id^="ppath3-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('final-step').style.display = path === 'transcript-yes' ? 'block' : 'none';
+}
+
+function showPodcastPath2(path) {
+  ['link','embed'].forEach(p => {
+    document.getElementById('ppath2-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.querySelectorAll('[id^="ppath3-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('final-step').style.display = path === 'link' ? 'block' : 'none';
+}
+
+function showPodcastPath3(path) {
+  ['teach-covers','teach-no'].forEach(p => {
+    document.getElementById('ppath3-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.getElementById('final-step').style.display = 'block';
+}
+
+function showMusicPath(path) {
+  ['background','study','standalone'].forEach(p => {
+    document.getElementById('mpath-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.querySelectorAll('[id^="mpath2-"]').forEach(el => el.style.display = 'none');
+  document.getElementById('final-step').style.display = (path === 'background' || path === 'standalone') ? 'block' : 'none';
+}
+
+function showMusicPath2(path) {
+  ['lyrics','description','visual'].forEach(p => {
+    document.getElementById('mpath2-'+p).style.display = p === path ? 'block' : 'none';
+  });
+  document.getElementById('final-step').style.display = 'block';
+}
+
+function toggleExpand(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function resetFlowchart() {
+  ['video','podcast','music'].forEach(b => document.getElementById('branch-'+b).style.display = 'none');
+  document.querySelectorAll('.flow-step').forEach(s => s.style.display = 'none');
+  document.getElementById('final-step').style.display = 'none';
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+}
+</script>
+</body>
+</html>
